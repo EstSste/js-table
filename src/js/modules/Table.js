@@ -52,6 +52,8 @@ class Table {
             tableRow: 'table-row',
             tableRowInfo: 'table-row-info',
             tableActions: 'table-actions',
+            tableUpdate: 'table-update',
+            tableWrap: 'table-wrap',
         };
 
         this.className = {
@@ -59,11 +61,17 @@ class Table {
             disable: 'disable',
             asc: 'asc',
             desc: 'desc',
+            hidden: 'hidden',
         };
 
         this.apiUrl = `http://www.filltext.com/?rows=${this.options.elementsCount}&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}`;
 
         // if (this.options.elementsCount > 50) this.apiUrl += `&delay=${this.options.delay}`;
+
+
+        this.$table = document.querySelector(`[data-${this.dataName.table}]`);
+        this.$tableWrap = document.querySelector(`[data-${this.dataName.tableWrap}]`);
+        this.$pagination = document.querySelector(`[data-${this.dataName.pagination}]`);
 
         this.getData().then(res => {
             this.data = res;
@@ -72,11 +80,9 @@ class Table {
             this.init();
         }).catch(err => {
             console.log(err);
-            throw new Error('Что-то пошло не так');
+            window.nx.alert.show('Что-то пошло не так', 'error');
+            // throw new Error('Что-то пошло не так');
         });
-
-        this.$table = document.querySelector(`[data-${this.dataName.table}]`);
-        this.$pagination = document.querySelector(`[data-${this.dataName.pagination}]`);
     }
 
     async getData(){
@@ -85,16 +91,22 @@ class Table {
         this.options.isLoading = true;
         window.nx.helpers.insertPreloader(document.body, false, 'content');
 
+        this.$tableWrap.classList.add(this.className.hidden);
+
         try {
             const response =  await fetch(this.apiUrl);
             data = await response.json();
+            window.nx.alert.show('Данные успешно загружены', 'success');
         } catch (e) {
             console.log(e);
-            throw new Error('Во время загрузки, возникла ошибка');
+            window.nx.alert.show('Во время загрузки, возникла ошибка', 'error');
+            // throw new Error('Во время загрузки, возникла ошибка');
+        } finally {
+            this.options.isLoading = false;
+            window.nx.helpers.hidePreloader(document.body, false);
         }
 
-        this.options.isLoading = false;
-        window.nx.helpers.hidePreloader(document.body, false);
+        this.$tableWrap.classList.remove(this.className.hidden);
 
         return data;
     }
@@ -129,6 +141,26 @@ class Table {
         this.render();
     }
 
+    updateTable(e){
+        const type = e.currentTarget.getAttribute(`data-${this.dataName.tableUpdate}`);
+
+        switch (type) {
+            case 'sort':
+                this.setSort(e);
+            break;
+            case 'page':
+                this.setPage(e);
+            break;
+            case 'search':
+            break;
+            case 'details':
+                this.showRowDetails(e);
+            break;
+        }
+
+        if (type !== 'details' ) this.render('body');
+    }
+
     setPage(e){
         e.preventDefault();
 
@@ -146,8 +178,6 @@ class Table {
             e.currentTarget.classList.add(this.className.active);
             this.table.page = Number(type);
         }
-
-        this.render('body');
     }
 
     setSort(e){
@@ -198,8 +228,6 @@ class Table {
         } else if (!this.table.currentSort) {
             this.data = [...this.dataDefault];
         }
-
-        this.render('body');
     }
 
     showRowDetails(e){
@@ -256,43 +284,19 @@ class Table {
     }
 
     bindEvents(){
-        const $sortLinks = document.querySelectorAll(`[data-${this.dataName.tableSortLink}]`);
-        this.setSort = this.setSort.bind(this);
+        const $updateLinks = document.querySelectorAll(`[data-${this.dataName.tableUpdate}]`);
+        this.updateTable = this.updateTable.bind(this);
 
-        $sortLinks.forEach($link =>{
-            $link.addEventListener('click', this.setSort, true);
-        });
-
-        const $tablePageLinks = document.querySelectorAll(`[data-${this.dataName.tablePage}]`);
-        this.setPage = this.setPage.bind(this);
-
-        $tablePageLinks.forEach($link =>{
-            $link.addEventListener('click', this.setPage, true);
-        });
-
-        const $tableRows = document.querySelectorAll(`[data-${this.dataName.tableRow}]`);
-        this.showRowDetails = this.showRowDetails.bind(this);
-
-        $tableRows.forEach($link =>{
-            $link.addEventListener('click', this.showRowDetails, true);
+        $updateLinks.forEach($link =>{
+            $link.addEventListener('click', this.updateTable, true);
         });
     }
 
     unBindEvents(){
-        const $sortLinks = document.querySelectorAll(`[data-${this.dataName.tableSortLink}]`);
-        $sortLinks.forEach($link =>{
-            $link.removeEventListener('click', this.setSort, true);
-        });
+        const $updateLinks = document.querySelectorAll(`[data-${this.dataName.tableUpdate}]`);
 
-        const $tablePageLinks = document.querySelectorAll(`[data-${this.dataName.tablePage}]`);
-        $tablePageLinks.forEach($link =>{
-            $link.removeEventListener('click', this.setPage, true);
-        });
-
-        const $tableRows = document.querySelectorAll(`[data-${this.dataName.tableRow}]`);
-
-        $tableRows.forEach($link =>{
-            $link.removeEventListener('click', this.showRowDetails, true);
+        $updateLinks.forEach($link =>{
+            $link.removeEventListener('click', this.updateTable, true);
         });
     }
 

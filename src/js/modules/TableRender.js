@@ -23,8 +23,8 @@ class TableRender {
                 sortClass = (this.table.currentSort.dir === 'desc') ? 'desc' : (this.table.currentSort.dir === 'asc') ? 'asc' : '';
             }
             return `
-                <div class="${this.className.table}__cell ${sortClass} ${activeClass}">
-                    <a href="#" class="${this.className.table}__link" data-table-sort="${cell.value}">
+                <div class="${this.className.table}__cell">
+                    <a href="#" class="${this.className.table}__link ${sortClass} ${activeClass}" data-table-update="sort" data-table-sort="${cell.value}">
                         ${cell.name}
                     </a>
                 </div>
@@ -45,7 +45,7 @@ class TableRender {
             });
 
             return `
-                <div class="${this.className.table}__row" data-table-row='${JSON.stringify(product)}'>
+                <div class="${this.className.table}__row" data-table-row='${JSON.stringify(product)}' data-table-update="details">
                     ${cell.join('')}
                 </div>
             `;
@@ -84,7 +84,7 @@ class TableRender {
             const activeClass = (Number(this.table.page) === page) ? 'active' : '';
 
             pages += `
-                <a href="#" class="pagination__pages-link ${activeClass}" data-table-page="${page}">
+                <a href="#" class="pagination__pages-link ${activeClass}" data-table-page="${page}" data-table-update="page">
                     <span>${page}</span>
                 </a>
             `;
@@ -96,13 +96,13 @@ class TableRender {
 
         return `
             <div class="pagination">
-                <a href="#" class="pagination__arrow" data-table-page="prev">
+                <a href="#" class="pagination__arrow" data-table-page="prev" data-table-update="page">
                     <i class="mdi mdi-arrow-left pagination__arrow-icon"></i>
                 </a>
                 <div class="pagination__pages">
                     ${pages}
                 </div>
-                <a href="#" class="pagination__arrow" data-table-page="next">
+                <a href="#" class="pagination__arrow" data-table-page="next" data-table-update="page">
                     <i class="mdi mdi-arrow-right pagination__arrow-icon"></i>
                 </a>
             </div>
