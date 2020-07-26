@@ -1,0 +1,109 @@
+$preloader: (
+    width: 28px,
+    height: 28px,
+    color: $c-dark,
+    thickness: 2px,
+    
+    btnWidth: 28px,
+    btnHeight: 28px,
+    
+    indicatorWidth: 20px,
+    indicatorHeight: 20px,
+    
+    contentWidth: 20px,
+    contentHeight: 20px
+);
+
+.preloader {
+    position: relative;
+    margin: auto;
+    width: map_get($preloader, width);
+    height: map_get($preloader, height);
+    border-radius: inherit;
+    
+    &__el{
+        display: block;
+        width: 100%;
+        height: 100%;
+        &:before, &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0; left: 0;
+            border: map_get($preloader, thickness) solid map_get($preloader, color);
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+        }
+        &:before {
+            animation: preloaderScale 1.5s linear 0s infinite;
+        }
+        
+        &:after {
+            opacity: .4;
+            animation: preloaderScale 1.5s linear 0.5s infinite;
+        }
+    }
+    
+    &_offsets{
+        margin: 30px auto;
+    }
+    &_btn{
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(white, .7);
+        z-index: 1;
+        .preloader__el{
+            @extend %centered-absolute;
+            width: map_get($preloader, btnWidth);
+            height: map_get($preloader, btnHeight);
+        }
+    }
+    &_indicator{
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        z-index: 10;
+        width: map_get($preloader, indicatorWidth);
+        height: map_get($preloader, indicatorHeight);
+    }
+    &_content{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        width: auto;
+        height: auto;
+        z-index: 10;
+        background-color: map_get($modal, bg-backdrop);
+        .preloader__el{
+            @extend %centered-absolute;
+            width: map_get($preloader, contentWidth);
+            height: map_get($preloader, contentHeight);
+        }
+    }
+}
+
+
+@keyframes preloaderScale {
+    0% {
+        transform: scale(0, 0);
+    }
+    
+    25% {
+        transform: scale(.7, .7);
+        opacity: .9;
+    }
+    
+    50% {
+        transform: scale(1, 1);
+    }
+    
+    100% {
+        transform: scale(0, 0);
+        opacity: .4;
+    }
+};

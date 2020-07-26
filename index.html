@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <title>Js table</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="/public/vendor.css">
+    <link rel="stylesheet" href="/public/app.min.css">
+</head>
+<body data-home="/">
+
+<div class="wrapper">
+    <div class="wrapper__content">
+        
+        <div class="container sbox">
+
+            <h1>Table UI</h1>
+
+            <div class="table-actions" data-table-actions>
+                <div class="spacer"></div>
+                <div class="table-actions__el" data-table-search></div>
+                <div class="table-actions__el" data-table-pagination></div>
+            </div>
+
+            <div class="products-table" data-table></div>
+
+            <div class="nx-actions-inline">
+                <div class="nx-actions-inline__el">
+                    <a href="#" data-table-build="1000" class="btn">Загрузить большую таблицу</a>
+                </div>
+                <div class="nx-actions-inline__el">
+                    <a href="#" data-table-build="32" class="btn btn_br">Загрузить маленькую таблицу</a>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<script src="/public/manifest.js"></script>
+<script src="/public/vendor.js"></script>
+<script src="/public/app.min.js"></script>
+
+</body>
+</html>

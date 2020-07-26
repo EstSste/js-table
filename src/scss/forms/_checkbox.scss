@@ -1,0 +1,146 @@
+.checkbox {
+    position: relative;
+    display: block;
+    user-select: none;
+
+    &__input {
+        display: none;
+
+        & + .checkbox__text {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            cursor: pointer;
+            padding: 0 0 0 map_get($checkbox, size) + 10;
+            min-height: map_get($checkbox, size);
+
+            &:before, &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 2px;
+                border-radius: 2px;
+                font-size: map_get($checkbox, size);
+                line-height: 1;
+                width: map_get($checkbox, size);
+                height: map_get($checkbox, size);
+                transition: all $tr-time $tr-type;
+                text-align: center;
+                box-shadow: none;
+            }
+
+            &:before {
+                border: 1px solid map_get($checkbox, brd);
+                background: map_get($checkbox, bg);
+            }
+
+            &:after {
+                content: '';
+                background-color: map_get($checkbox, bg-active);
+                color: map_get($checkbox, bg-active);
+                visibility: hidden;
+                opacity: 0;
+                transform: scale(0, 0);
+            }
+
+            &:hover {
+                &:before {
+                    border-color: map_get($checkbox, brd-hover);
+                }
+                &:after{
+                    color: map_get($link, color-hover);
+                }
+            }
+        }
+
+        &:checked + .checkbox__text{
+            &:before {
+                border-color: map_get($checkbox, brd-active);
+            }
+            &:after {
+                opacity: 1;
+                visibility: visible;
+                transform: scale(.5, .5);
+            }
+        }
+
+
+        &[disabled], &[disabled="disabled"], &.disabled{
+            & + .checkbox__text{
+                cursor: default;
+                &:before, &:after {
+                    box-shadow: none;
+                }
+                &:before {
+                    border-color: transparent;
+                    background-color: map_get($checkbox, disabled);
+                }
+                &:after{
+                    color: map_get($checkbox, disabled);
+                    background-color: transparent;
+                }
+            }
+            &:checked + .checkbox__text{
+                &:before {
+                    border-color: transparent;
+                    background-color: map_get($checkbox, disabled);
+                }
+                &:after{
+                    color: map_get($checkbox, disabled);
+                    background-color: map_get($checkbox, disabled-checked);
+                }
+            }
+        }
+    }
+
+    &_radio{
+        .checkbox__input{
+            & + .checkbox__text{
+                &:before, &:after {
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    &_inline {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 16px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &_mb{
+        margin-bottom: 10px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+
+    &_empty {
+        width: map_get($checkbox, size);
+        height: map_get($checkbox, size);
+
+        .checkbox__text {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding-left: 0;
+            &:after, &:before {
+                top: 0;
+            }
+        }
+    }
+
+    //@include media('xs'){}
+}
+
+[type="checkbox"], [type="radio"]{
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-bottom: 3px;
+}

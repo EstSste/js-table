@@ -1,0 +1,46 @@
+.pagination{
+    display: flex;
+    align-items: center;
+    font-size: $fz-little;
+    &__arrow{
+        position: relative;
+        width: 30px;
+        height: 30px;
+        fill: rgba($c-dark, .5);
+        border-radius: 2px;
+        &-icon{
+            display: block;
+            @extend %centered-absolute;
+            width: 16px;
+            height: 16px;
+            &_next{
+                transform: rotate(180deg);
+            }
+        }
+    }
+    &__pages{
+        display: flex;
+        align-items: center;
+        &-link{
+            padding: 5px 12px;
+            border-radius: $brd-rad-main;
+            &.active{
+                cursor: default;
+                opacity: .5;
+                color: $c-dark;
+                span{
+                    border-bottom: none;
+                }
+            }
+        }
+        &-dots{
+            color: $c-dark;
+            &:last-child{
+                margin-left: 15px;
+            }
+            &:first-child{
+                margin-right: 15px;
+            }
+        }
+    }
+}

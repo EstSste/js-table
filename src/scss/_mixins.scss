@@ -1,0 +1,159 @@
+// ===============================
+// String Replace
+// ===============================
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+// ===============================
+// Font Face
+// ===============================
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+    $src: null;
+    $extmods: (
+            eot: "?",
+            svg: "#" + str-replace($name, " ", "_")
+    );
+    $formats: (
+            otf: "opentype",
+            ttf: "truetype"
+    );
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+    }
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}
+
+// Шрифт Material Design Icons для псевдоклассов
+%f-mdi{
+    font-family: "Material Design Icons";
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Шрифт FontAwesome Icons для псевдоклассов
+%f-fa{
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-style: normal;
+}
+
+%clearfix-after{
+    &:after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+// Абсолютное выравнивание по центру
+%centered-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+// Оформление placeholder
+@mixin placeholder {
+    &::-webkit-input-placeholder{ @content; }
+    &:-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+}
+
+
+/* Sprite */
+@mixin sprite($x: 0, $y: 0, $width: 0, $height: 0) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+// цвет выделяемого текста
+@mixin selection($color, $bg) {
+    ::selection {
+        -webkit-font-smoothing: antialiased;
+        color: $color;
+        text-shadow: none;
+        background: $bg;
+    }
+    ::-moz-selection {
+        -webkit-font-smoothing: antialiased;
+        color: $color;
+        text-shadow: none;
+        background: $bg;
+    }
+}
+@mixin scrollbar($size, $foreground-color, $background-color) {
+    // For Google Chrome
+    ::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+    
+    // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+
+// @media запросы
+@mixin media($screen: 'xs', $screen2: ''){
+    @if str-length($screen) > 0 and str-length($screen2) > 0{
+        @media (min-width: map_get($breakpoints, $screen)) and (max-width: map_get($breakpoints, $screen2)) {
+            @content;
+        }
+    }@else if str-index($screen, 'max') or str-index($screen, 'min'){
+        @if str-index($screen, 'max'){
+            @media (max-width: map_get($breakpoints, $screen)) {
+                @content;
+            }
+        }
+        @if str-index($screen, 'min'){
+            @media (min-width: map_get($breakpoints, $screen)) {
+                @content;
+            }
+        }
+    }@else {
+        @if(map_get($breakpoints, $screen)){
+            @media (max-width: map_get($breakpoints, $screen)) {
+                @content;
+            }
+        }@else {
+            @media (max-width: $screen) {
+                @content;
+            }
+        }
+        
+    }
+}
+
+// Троеточие в конце строки
+@mixin truncate ($width) {
+    max-width: $width;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+}

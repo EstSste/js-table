@@ -1,0 +1,166 @@
+.flex-row{
+    width: 100%;
+    &#{&}_no-gut{
+        margin-right: 0;
+        margin-left: 0;
+        > .flex-col{
+            padding-right: 0; padding-left: 0;
+        }
+    }
+    &#{&}_form{
+        margin-right: -5px;
+        margin-left: -5px;
+        > .flex-col{
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+    }
+    
+    &_ai-center{
+        align-items: center;
+    }
+    
+    @include media('sm-min', 'sm-max'){
+        margin-right: -$grid-gutter-sm / 2;
+        margin-left: -$grid-gutter-sm / 2;
+        .flex-col{
+            padding-right: ($grid-gutter-sm / 2);
+            padding-left: ($grid-gutter-sm / 2);
+        }
+    }
+    @include media('xs'){
+        margin-right: -$grid-gutter-xs / 2;
+        margin-left: -$grid-gutter-xs / 2;
+        .flex-col{
+            padding-right: ($grid-gutter-xs / 2);
+            padding-left: ($grid-gutter-xs / 2);
+        }
+    }
+}
+
+.text-center{
+    text-align: center !important;
+}
+.text-left{
+    text-align: left !important;
+}
+.text-right{
+    text-align: right !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.unvisible{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity $tr-time/2 $tr-type;
+    &.show {
+        opacity: 1;
+    }
+}
+.collapse {
+    display: none;
+    &__wrap{
+        padding: 0;
+    }
+    &.show {
+        display: block;
+    }
+}
+.collapsing {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    transition: height $tr-time $tr-type, opacity $tr-time $tr-type, visibility $tr-time $tr-type;
+}
+.tab-content{
+    > .tab-pane {
+        display: none;
+    }
+    > .active {
+        display: block;
+    }
+}
+
+.menu-open{
+    overflow: hidden;
+}
+
+.svg-icons {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: -999;
+}
+
+.bg-fade{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: rgba(black, .5);
+}
+
+//Цвета
+.important-color{ color: map_get($content, important-color) !important; }
+.success-color{ color: map_get($content, success-color) !important; }
+.warning-color{ color: map_get($content, warning-color) !important; }
+.error-color{ color: map_get($content, error-color) !important; }
+.info-color{ color: map_get($content, info-color) !important; }
+
+[data-load-content], [data-affix-parent]{
+    position: relative;
+}
+[data-custom-scroll], [data-attach-dragger]{
+    overflow: hidden;
+}
+[data-attach-dragger]{
+    user-select: none;
+    img, a, button{
+        pointer-events: none;
+    }
+}
+
+.menu-bg, .filter-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: map_get($modal, bg-backdrop);
+    z-index: 499;
+    transition: all $tr-time $tr-type;
+    visibility: hidden;
+    opacity: 0;
+}
+
+@include media('md-max'){
+    .menu-open .menu-bg{
+        transform: none;
+        visibility: visible;
+        opacity: 1;
+    }
+    .filter-open .filter-bg{
+        transform: none;
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.d-block{
+    display: block;
+}

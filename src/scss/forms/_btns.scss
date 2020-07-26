@@ -1,0 +1,78 @@
+button:not(.fancybox-button), .btn,
+[type="button"], [type="submit"], [type="reset"]{
+    position: relative;
+    display: inline-block;
+    background-color: $btn-main;
+    border: none;
+    height: auto;
+    font-size: $fz-main;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+    white-space: normal;
+    padding: 13px 25px;
+    border-radius: $brd-rad-main;
+    cursor: pointer;
+    transition: all $tr-time $tr-type;
+    box-shadow: none;
+    color: $btn-main-color;
+    span{
+        border-bottom: none;
+    }
+    &:hover{
+        background-color: $btn-main-hover;
+        color: $btn-main-color;
+    }
+    &[disabled], &.disabled{
+        &, &:focus, &:hover, &:active{
+            background: $btn-disabled;
+            color: $btn-disabled-color;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+    &[readonly], &.readonly{
+        &, &:focus, &:hover, &:active{
+            background: $btn-disabled;
+            color: $btn-disabled-color;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+    [type="file"]{
+        display: none;
+    }
+}
+
+.btn{
+    &#{&}_d-block{
+        display: block;
+        width: 100%;
+    }
+    &#{&}_d-block-xs{
+        @include media('xs'){
+            display: block;
+            width: 100%;
+        }
+    }
+    &#{&}_lt{
+        background-color: $white;
+        color: $c-dark;
+        &:hover {
+            background-color: $c-dark;
+            color: $white;
+        }
+    }
+    &#{&}_br{
+        border: 2px solid $btn-main;
+        &, &:hover{
+            background-color: white;
+            color: $btn-main;
+            padding: 11px 18px;
+        }
+        &:hover{
+            color: white;
+            background-color: $btn-main-hover;
+        }
+    }
+}

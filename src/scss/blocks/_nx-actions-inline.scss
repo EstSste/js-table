@@ -1,0 +1,46 @@
+.nx-actions-inline{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: -20px;
+    margin-top: 40px;
+    &__el{
+        margin-right: 20px;
+        margin-bottom: 20px;
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+
+    &_center{
+        justify-content: center;
+    }
+    &_single {
+        margin-top: 20px;
+    }
+    &_note{
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        .nx-actions-inline__el_btn{
+            flex: none;
+        }
+    }
+
+    @include media('xs'){
+        margin-top: 30px;
+        &__el{
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        &_note{
+            display: block;
+            .nx-actions-inline__el{
+                margin-right: 0;
+            }
+        }
+        &_single {
+            margin-top: 10px;
+        }
+    }
+}

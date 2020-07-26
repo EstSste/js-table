@@ -1,0 +1,70 @@
+*, *:after, *:before{
+    padding: 0;
+    margin: 0;
+    outline: none !important;
+    box-sizing: border-box;
+}
+:focus{
+    outline: none !important;
+}
+
+html,
+body {
+    position: relative;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+}
+
+body{
+    font: map-get($font, weight) #{map-get($font, size)}/#{map-get($font, line-height)} map-get($font, family);
+    color: map-get($text, color-main);
+    min-width: map-get($container, min-width);
+    background: map-get($bg, body);
+}
+
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 100%;
+    background: map-get($bg, wrapper);
+    &__content{
+        flex: 1 0 auto;
+        overflow: hidden;
+        min-width: 0;
+    }
+}
+
+.container{
+    position: relative;
+    background: map-get($bg, container);
+    max-width: map-get($container, max-width);
+    width: map-get($container, width);
+    margin: 0 auto;
+    padding-right: $container-gutter;
+    padding-left: $container-gutter;
+    z-index: 1;
+    
+    @include media('sm-min', 'sm-max'){
+        padding-right: $container-gutter-sm;
+        padding-left: $container-gutter-sm;
+    }
+    @include media('xs'){
+        padding-right: $container-gutter-xs;
+        padding-left: $container-gutter-xs;
+    }
+}
+
+.content-narrow{
+    max-width: map-get($container, narrow);
+}
+.content-narrow-med{
+    max-width: map-get($container, narrow-med);
+}
+
+@include selection(map_get($selectoin, color), map_get($selectoin, bg));
+@include media('md-min'){
+    @include scrollbar(map_get($scrollbar, size), rgba(map_get($scrollbar, track-bg), .2), map_get($scrollbar, bg));
+}

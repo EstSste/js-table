@@ -1,0 +1,119 @@
+.form-el, textarea, select,
+[type="text"], [type="email"], [type="search"],
+[type="tel"], [type="url"], [type="password"],
+[type="number"], [type="date"], [type="color"]{
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: map_get($input, max-w);
+    height: map_get($input, height);
+    padding: 9px 12px;
+    font-size: $fz-main;
+    font-family: map_get($font, family);
+    line-height: 1;
+    color: map_get($input, color);
+    background-color: map_get($input, bg);
+    border: 1px solid map_get($input, brd);
+    border-radius: $brd-rad-main;
+    transition: all $tr-time $tr-type;
+    box-shadow: none;
+    &:hover{
+        border-color: map_get($input, brd-hover);
+    }
+    &:focus{
+        border-color: map_get($input, brd-focus);
+    }
+    @include placeholder{
+        color: map_get($input, placeholder-color);
+        font-family: map_get($font, family);
+        font-size: $fz-main;
+        line-height: 1;
+    }
+
+    &[readonly], &.readonly,
+    &[disabled], &.disabled{
+        &, &:focus, &:hover, &:active{
+            background: map_get($input, disabled);
+            color: map_get($input, color);
+            border: none;
+            box-shadow: none;
+            cursor: default;
+        }
+    }
+}
+
+textarea, textarea.form-el{
+    height: auto;
+    min-height: map_get($textarea, height);
+    max-width: 100%;
+    max-height: map_get($textarea, max-height);
+    resize: none;
+
+    &[data-dynamic-textarea]{
+        min-height: map_get($input, height);
+    }
+}
+[type="search"]{
+    box-sizing: border-box;
+}
+[type="color"]{
+    padding: 1px 2px;
+    width: 44px;
+    height: 44px;
+}
+select{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.form-bgc {
+    padding: 40px 40px 50px;
+    background-color: lightgray;
+}
+.form-el{
+    &_short{
+        max-width: map_get($input, max-w-short);
+    }
+}
+
+.form-group{
+    position: relative;
+    margin-bottom: 20px;
+    &:last-child{
+        margin-bottom: 0;
+    }
+    &.error{
+        input, textarea, select{
+            border-color: map_get($content, error-color);
+            &:hover{
+                border-color: rgba(map_get($content, error-color), .7);
+            }
+            &:hover{
+                border-color: map_get($content, error-color);
+            }
+        }
+    }
+}
+
+.form-error, .form-info{
+    display: block;
+    font-size: $fz-min;
+    margin-top: 5px;
+    &_top{
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+}
+.form-error{
+    color: map_get($content, error-color);
+}
+
+label, .form-label{
+    display: block;
+    &__text{
+        display: block;
+        margin-bottom: 8px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,103 @@
+a, .link{
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: map_get($link, color-main);
+    transition: all $tr-time $tr-type;
+    
+    &:after, &:before{
+        transition: transform $tr-time $tr-type;
+    }
+    
+    span{
+        transition: border-bottom $tr-time $tr-type;
+        border-bottom: 1px solid map_get($link, color-brd);
+    }
+    
+    &:hover{
+        color: map_get($link, color-hover);
+        text-decoration: none;
+        span{
+            border-bottom-color: rgba(map_get($link, color-hover), .3);
+        }
+    }
+    
+    &.disabled{
+        &, &:hover{
+            cursor: not-allowed;
+            color: map_get($text, disabled);
+            span{
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.link-icon{
+    vertical-align: baseline;
+    margin-right: 6px;
+    &:last-child {
+        margin-right: 0;
+        margin-left: 8px;
+    }
+}
+
+
+.link{
+    &_dashed{
+        span{
+            border-bottom-style: dashed;
+        }
+    }
+    &_bold{
+        font-weight: bold;
+    }
+    &_baseline{
+        vertical-align: baseline;
+    }
+    
+    &_red{
+        color: $c-red;
+        span{
+            border-bottom-color: rgba($c-red, .3);
+        }
+        &:hover{
+            color: $c-red;
+            span{
+                border-bottom-color: $c-red;
+            }
+        }
+    }
+    
+    &_light{
+        color: white;
+        span{
+            border-bottom-color: rgba(white, .3);
+        }
+        &:hover{
+            color: map_get($link, color-hover);
+            span{
+                border-bottom-color: rgba(map_get($link, color-hover), .3);
+            }
+        }
+    }
+    
+    &_collapse{
+        padding-right: 20px;
+        &:after{
+            content: "\F143";
+            @extend %f-mdi;
+            display: block;
+            position: absolute;
+            top: .2rem;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        &.collapsed:after{
+            transform: rotate(180deg);
+        }
+    }
+}

@@ -1,0 +1,226 @@
+p, div{
+    margin: 0;
+}
+
+hr, .line{
+    margin: 20px 0;
+    width: 100%;
+    @include media('xs'){
+        margin: 15px 0;
+    }
+}
+hr{
+    border-color: map_get($content, hr-color);
+    border-width: 2px;
+}
+
+.line{
+    height: 2px;
+    background-color: map_get($content, hr-color);
+    &_lt {
+        background-color: map_get($content, hr-color-lt);
+    }
+}
+
+img{
+    display: block;
+    max-width: 100%;
+}
+
+pre code{
+    overflow: auto;
+}
+
+mark{
+    background-color: map_get($content, mark-bg);
+    padding: 1px 10px;
+    color: inherit;
+    border-radius: $brd-rad-box;
+}
+samp, code, var{
+    background-color: map_get($content, code-bg);
+    padding: 0 5px;
+}
+var{
+    font-size: $fz-min;
+    font-weight: bold;
+}
+address{
+    font-style: normal;
+}
+
+//Текст
+.text{
+    position: relative;
+    z-index: 1;
+    margin-bottom: 40px;
+    &:last-child{
+        margin-bottom: 0;
+    }
+    //стили для общего контента
+    iframe{
+        width: 100%;
+        height: 400px;
+        margin: 20px auto;
+    }
+    p, ul, ol, dl{
+        margin-bottom: 10px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    img, figure{
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    figure{
+        img {
+            margin-bottom: 6px;
+        }
+        figcaption{
+            font-style: italic;
+            font-size: $fz-min;
+        }
+    }
+    a{
+        display: inline;
+        vertical-align: auto;
+    }
+    ul, ol, dl{
+        li, dd, dt{
+            margin-left: 20px;
+            margin-bottom: 6px;
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+        ul, ol, dl{
+            margin-top: 8px;
+        }
+    }
+    blockquote{
+        margin: 16px 0;
+        padding: 20px;
+        border-left: 3px solid map_get($content, blockquote-br);
+        p{
+            margin-bottom: 10px;
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    table{
+        width: auto;
+        border-collapse: collapse;
+        min-width: 100%;
+        color: map_get($text, color-dark-fade);
+        caption{
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        th{
+            text-align: left;
+        }
+        td, th{
+            padding: 10px 20px;
+            border: 1px solid map_get($table, br-color);
+            img{
+                margin: 0;
+            }
+        }
+        tr{
+            transition: background-color $tr-time $tr-type;
+            &:nth-child(odd){
+                background-color: map_get($table, tr-bg);
+            }
+            &:hover{
+                background-color: map_get($table, tr-bg-hover);
+
+            }
+        }
+    }
+
+    &_l{
+        font-size: $fz-xmain;
+        @include media('xs'){
+            font-size: $fz-main;
+        }
+    }
+
+    &_s{
+        font-size: $fz-min;
+        p, ul, ol{
+            margin-bottom: 6px;
+        }
+        img{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &_light-fade{
+        color: map_get($text, color-light-fade);
+    }
+    &_dark-fade{
+        color: map_get($text, color-dark-fade);
+    }
+    &_light{
+        color: map_get($text, color-light);
+    }
+
+    @include media('xs'){
+        img{
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+    }
+}
+
+//Примичания
+small, .note{
+    font-size: $fz-min;
+    color: $note-color;
+    &_btn{
+        margin-top: 10px;
+    }
+    .link {
+        display: inline;
+    }
+}
+.date {
+    color: $note-color;
+    font-size: $fz-main;
+}
+.styled-list, .text_styled-list ul{
+    list-style-type: none;
+    li{
+        position: relative;
+        padding-left: 12px;
+        margin-bottom: 10px;
+        margin-left: 0;
+        &:last-child{
+            margin-bottom: 0;
+        }
+        &:before{
+            display: block;
+            content: "";
+            position: absolute;
+            top: .45rem;
+            left: 0;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: map_get($content, list-dot-bg);
+        }
+    }
+}
+
+
+.table-wrap{
+    overflow-y: auto;
+    margin: 24px 0;
+    &:last-child{
+        margin-bottom: 0;
+    }
+}

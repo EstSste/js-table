@@ -1,0 +1,40 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "usage",
+                "corejs": {
+                    "version": 3,
+                    "proposals": false
+                },
+                "targets": {
+                    "ie": "10"
+                }
+            }
+        ]
+    ],
+    "parserOpts": {
+        "allowImportExportEverywhere": true,
+        "allowUndeclaredExports": true,
+        "errorRecovery": true,
+        "plugins": [
+            "import-directory",
+            "@babel/plugin-proposal-class-properties",
+            [
+                "@babel/plugin-transform-runtime",
+                {
+                    "corejs": 3,
+                    "helpers": true,
+                    "regenerator": true,
+                    "useESModules": false
+                }
+            ]
+        ]
+    },
+    "plugins": [
+        "import-directory",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-runtime"
+    ]
+}

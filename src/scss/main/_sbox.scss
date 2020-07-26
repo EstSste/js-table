@@ -1,0 +1,19 @@
+.sbox{
+    position: relative;
+    margin-top: $section-offset;
+    margin-bottom: $section-offset;
+    
+    &__title {
+        margin-bottom: 20px;
+    }
+    
+    @include media('sm-min', 'sm-max'){
+        margin-top: $section-offset-sm;
+        margin-bottom: $section-offset-sm;
+    }
+    
+    @include media('xs'){
+        margin-top: $section-offset-xs;
+        margin-bottom: $section-offset-xs;
+    }
+}

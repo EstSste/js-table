@@ -1,0 +1,61 @@
+.attrs {
+    &__el{
+        display: flex;
+        margin-bottom: 10px;
+        width: 100%;
+        &:last-of-type{
+            margin-bottom: 0;
+        }
+        &_fw{
+            display: block;
+            .attrs__name, .attrs__val{
+                display: block;
+                width: 100%;
+            }
+            .attrs__name{
+                margin-bottom: 3px;
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+    &__name{
+        overflow: hidden;
+        width: percentage(14/$grid-cols);
+        margin-right: 7px;
+    
+        &:after {
+            content: '';
+            display: inline-block;
+            vertical-align: baseline;
+            width: 100%;
+            height: 1px;
+            margin-left: 7px;
+            background-color: $brd-color;
+            margin-right: -100%;
+        }
+    }
+    
+    &__val{
+        width: percentage(10/$grid-cols);
+        margin-left: auto;
+        align-self: flex-end;
+    }
+    
+    @include media('xs'){
+        &__el{
+            display: block;
+        }
+        &__name, &__val{
+            width: auto;
+        }
+        &__name{
+            margin-bottom: 3px;
+            font-size: $fz-min;
+            &:after {
+                display: none;
+            }
+        }
+    }
+}

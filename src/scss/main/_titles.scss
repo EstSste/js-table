@@ -1,0 +1,77 @@
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .title-page{
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.16;
+}
+h1, .h1{
+    font-size: $fz-big;
+    margin-bottom: 20px;
+    @include media('xs'){
+        font-size: $fz-xlarge;
+        margin-bottom: 15px;
+    }
+}
+h2, .h2{
+    font-size: $fz-xbig;
+    margin-bottom: 15px;
+    @include media('xs') {
+        font-size: $fz-large;
+        margin-bottom: 10px;
+    }
+}
+h3, .h3{
+    font-size: $fz-big;
+    margin-bottom: 10px;
+    @include media('xs') {
+        font-size: $fz-xmed;
+    }
+}
+h4, .h4{
+    font-size: $fz-xlarge;
+    margin-bottom: 10px;
+    @include media('xs') {
+        font-size: $fz-xmain;
+    }
+}
+
+h5, .h5,
+h6, .h6{
+    font-size: $fz-med;
+    margin-bottom: 10px;
+    @include media('xs') {
+        font-size: $fz-xmain;
+        margin-bottom: 5px;
+    }
+}
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.title-page{
+    font-size: $fz-xl;
+    margin-bottom: 20px;
+    @include media('sm-min', 'sm-max'){
+        font-size: $fz-big;
+    }
+    @include media('xs'){
+        font-size: $fz-xxlarge;
+        margin-bottom: 15px;
+    }
+}
+
+.pretitle{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.factoid{
+    font-size: $fz-xxl;
+    font-weight: bold;
+    line-height: 1;
+    @include media('xs'){
+        font-size: $fz-big;
+    }
+}

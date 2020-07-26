@@ -1,0 +1,355 @@
+//////////////////
+// Colors
+//////////////////
+$white: #ffffff;
+$black: #000000;
+
+$c-dark: #2D2D2D;
+
+$c-gray: #B5B5B5;
+$c-gray-light: #F5F5F5;
+$c-gray-dark: #828282;
+
+$c-blue: #3182AA;
+
+$c-green: #3FA747;
+
+$c-orange: #ffa63d;
+
+$c-red: #de0c0f;
+
+
+//////////////////
+// BACKGROUNDS
+//////////////////
+$bg:(
+    body: white,
+    wrapper: transparent,
+    container: transparent,
+);
+
+
+//////////////////
+// Header
+//////////////////
+$header:(
+    height: 70px,
+    height-sm: 50px,
+    height-xs: 48px,
+    bg: whitesmoke,
+);
+
+
+//////////////////
+// Menu
+//////////////////
+$menu:(
+    width: 290px,
+
+    bg: white,
+    bg-active: transparent,
+    bg-hover: rgba(white, .05),
+
+    color-active: $c-dark,
+);
+
+$submenu:(
+    bg: white,
+    bg-xs: whitesmoke,
+    width: 200px
+);
+
+$mtoggle:(
+    size: 44px,
+    width: 24px,
+    height: 2px,
+    color: black,
+    color-hover: black,
+    color-active: black,
+    distanceBetween: 8px,
+    bg: transparent
+);
+
+
+//////////////////
+// Footer
+//////////////////
+$footer-bg: transparent;
+
+
+//////////////////
+// Content
+//////////////////
+$text:(
+    color-main: $c-dark,
+    color-dark: $c-dark,
+    color-dark-fade: rgba($c-dark, .8),
+    color-light: $white,
+    color-light-fade: rgba($white, .8),
+    disabled: rgba($c-dark, .6)
+);
+
+$note-color: rgba(map_get($text, color-main), .7);
+
+$table:(
+    tr-bg: lighten(slategray, 46%),
+    tr-bg-hover: lighten(slategray, 40%),
+    br-color: lighten(slategray, 38%)
+);
+
+$content:(
+    blockquote-br: $black,
+
+    hr-color: rgba($black, .08),
+    hr-color-lt: $white,
+
+    list-dot-bg: $c-gray-dark,
+
+    mark-bg: yellow,
+
+    code-bg: lighten(slategray, 40%),
+
+    important-color: $c-red,
+    error-color: $c-red,
+    success-color: $c-green,
+    info-color: $c-blue,
+    warning-color: $c-orange
+);
+
+//////////////////
+// ANIMATIONS
+//////////////////
+$tr-time: .2s;
+$tr-type: ease-in-out;
+
+
+//////////////////
+// Links
+//////////////////
+$link: (
+    color-main: $c-dark,
+    color-brd: rgba($c-dark, .3),
+    color-hover: $c-red
+);
+
+$social:(
+    default-bg: gray,
+    default-fill: white,
+    vk: #4A729F,
+    tw: #1C9DEC,
+    fb: #4064AD,
+    tg: #0084C6,
+    od: #F38A11,
+    wa: #4DC85A,
+    yt: #FF0000,
+    pin: #E00022,
+    inst: #E1306C,
+    email: #F1B328,
+    size: 40px,
+    size-xs: 35px,
+    
+    offset-bottom: 10px,
+    offset-right: 25px,
+    offset-right-xs: 15px,
+    
+    share-icon-w: 16px,
+    share-icon-h: 16px,
+);
+
+//////////////////
+// Buttons
+//////////////////
+$btn-main: $c-dark;
+$btn-main-color: white;
+$btn-main-hover: rgba($c-dark, .8);
+
+$btn-disabled: rgba($c-dark, .1);
+$btn-disabled-color: $c-dark;
+
+$btn-close: $c-dark;
+$btn-close-hover: $c-red;
+
+
+//////////////////
+// Forms
+//////////////////
+$input:(
+    height: 50px,
+    max-w: 100%,
+    max-w-short: 250px,
+    bg: white,
+    color: map_get($text, color-main),
+    bg-active: white,
+    brd: rgba($black, .2),
+    brd-hover: rgba($black, .5),
+    brd-focus: rgba($black, 1),
+    disabled: rgba($black, .1),
+    placeholder-color: rgba($black, .4)
+);
+
+$textarea:(
+    height: 50px,
+    max-height: 250px,
+);
+
+$select:(
+    bg-selected: rgba($black, .8),
+    bg-hover: rgba($black, .08)
+);
+
+$checkbox:(
+    size: 18px,
+    brd: map_get($input, brd),
+    brd-hover: map_get($input, brd-hover),
+    brd-active: map_get($input, brd-focus),
+    bg: map_get($input, bg),
+    bg-active: map_get($input, brd-focus),
+    disabled: map_get($input, disabled),
+    disabled-checked: rgba(black, .3)
+);
+
+
+//////////////////
+// Box
+//////////////////
+$brd-rad-main: 2px;
+$brd-rad-box: 3px;
+
+$brd-color: rgba(gray, .1);
+
+
+//////////////////
+// Modals
+//////////////////
+$modal:(
+    width: 600px,
+    width-min: 400px,
+    width-big: 800px,
+    bg: white,
+    bg-backdrop: rgba($c-dark, .3),
+    close-size: 24px
+);
+
+
+//////////////////
+// Sliders
+//////////////////
+$promo-slider:(
+    height: 550px,
+    height-xs: 400px,
+    arrow-w: 30px,
+    arrow-h: 30px,
+    arrow-fz: 30px,
+    bullet: 20px,
+    bg: $c-dark,
+);
+
+
+$list-slider:(
+    icon-fz: 30px,
+    icon-w: 30px,
+    icon-h: 30px,
+);
+
+
+//////////////////
+//scrollbar & selection
+//////////////////
+$scrollbar:(
+    size: 8px,
+    radius: 10px,
+    track-bg: slategray,
+    bg: transparent
+);
+$scrollbarCustom:(
+    handle-size: 3px,
+    handle-radius: 10px,
+    track-bg: whitesmoke,
+    handle-bg: rgba(black, .4),
+    handle-bg-active: rgba(black, .7),
+    handle-bg-hover: rgba(black, .55),
+);
+
+$selectoin:(
+    color: $white,
+    bg: $c-dark,
+);
+
+
+//////////////////
+// STRUCTURE
+//////////////////
+$grid-cols: 24 !default;
+$grid-gutter: 35px;
+$grid-gutter-sm: 30px;
+$grid-gutter-xs: 20px;
+$flex-row-class: 'flex-row';
+$flex-col-name: 'flex-col';
+$grid-breakpoints: (
+    sm 768px,
+    md 992px,
+    lg 1200px
+);
+
+$breakpoints:(
+    xs: 767px,
+    sm-min: 768px,
+    sm-max: 991px,
+    md-min: 992px,
+    md-max: 1199px,
+    lg-min: 1200px,
+    lg-max: 1399px,
+    xl-min: 1400px,
+    xl-max: 1599px
+);
+
+$section-offset: 80px;
+$section-offset-sm: 60px;
+$section-offset-xs: 40px;
+
+$container-gutter: 50px;
+$container-gutter-sm: 30px;
+$container-gutter-xs: 20px;
+$container:(
+    max-width: 1300px,
+    width-wo-gutter: 1200 - $container-gutter*2,
+    min-width: 320px,
+    width: 100%,
+    narrow: 700px,
+    narrow-med: 995px,
+);
+
+
+//////////////////
+// FONTS
+//////////////////
+$fz-little: 12px;
+
+$fz-min: 13px;
+$fz-xmin: 14px;
+
+$fz-main: 16px;
+$fz-xmain: 18px;
+
+$fz-med: 20px;
+$fz-xmed: 25px;
+$fz-xxmed: 26px;
+
+$fz-large: 30px;
+$fz-xlarge: 33px;
+$fz-xxlarge: 35px;
+
+$fz-big: 40px;
+$fz-xbig: 45px;
+$fz-xxbig: 50px;
+
+$fz-xl: 55px;
+$fz-xxl: 70px;
+
+$font:(
+    family: ('Arial', sans-serif),
+    title: ('Arial', sans-serif),
+    weight: normal,
+    size: $fz-main,
+    line-height: 1.4
+);

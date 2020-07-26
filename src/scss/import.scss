@@ -1,0 +1,43 @@
+//fist
+@import "varibles";
+@import "mixins";
+
+// vendors
+@import "_vendor/fonts/materialdesignicons.min.css";
+
+@import "_vendor/flex-grid";
+
+// default
+@import "starting";
+@import "layouts";
+
+// libs
+//@import "_vendor/";
+
+// forms & buttons
+@import "forms/btns";
+@import "forms/forms";
+@import "forms/checkbox";
+@import "forms/label-dynamic";
+
+// main
+@import "main/titles";
+@import "main/links";
+@import "main/content";
+@import "main/sbox";
+
+
+// blocks
+@import "blocks/nx-actions-inline";
+@import "blocks/attrs";
+@import "blocks/preloader";
+@import "blocks/products-table";
+@import "blocks/pagination";
+
+
+
+//pages
+//@import "pages/";
+
+// themes
+//@import "themes/bootstrap-main-styles";
