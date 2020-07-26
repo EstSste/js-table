@@ -1,9 +1,13 @@
 'use strict';
 
 import TableRender from './TableRender';
+import TableSort from './TableSort';
+import TablePagination from './TablePagination';
+import TableRowDetails from './TableRowDetails';
 
 class Table {
-    constructor(count) {
+    constructor(count, actions) {
+
         this.options = {
             elementsCount: count || 1000,
             isLoading: false,
@@ -38,36 +42,30 @@ class Table {
                     isSorted: false,
                 }
             ],
-            currentSort: null,
             limit: 50,
             page: 1,
         };
 
+        this.actions = {
+            ...actions
+        };
+
         this.dataName = {
             table: 'table',
-            tableSortLink: 'table-sort',
             tableHead: 'table-head',
             pagination: 'table-pagination',
-            tablePage: 'table-page',
-            tableRow: 'table-row',
-            tableRowInfo: 'table-row-info',
             tableActions: 'table-actions',
             tableUpdate: 'table-update',
             tableWrap: 'table-wrap',
         };
 
         this.className = {
-            active: 'active',
-            disable: 'disable',
-            asc: 'asc',
-            desc: 'desc',
             hidden: 'hidden',
         };
 
         this.apiUrl = `http://www.filltext.com/?rows=${this.options.elementsCount}&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}`;
 
-        // if (this.options.elementsCount > 50) this.apiUrl += `&delay=${this.options.delay}`;
-
+        if (this.options.elementsCount > 50) this.apiUrl += `&delay=${this.options.delay}`;
 
         this.$table = document.querySelector(`[data-${this.dataName.table}]`);
         this.$tableWrap = document.querySelector(`[data-${this.dataName.tableWrap}]`);
@@ -76,7 +74,7 @@ class Table {
         this.getData().then(res => {
             this.data = res;
             this.dataDefault = [...this.data];
-            this.setTableTotalPages(this.totalPages);
+            this.table.totalPages = this.totalPages;
             this.init();
         }).catch(err => {
             console.log(err);
@@ -131,10 +129,6 @@ class Table {
         return Math.ceil(this.dataLength/this.table.limit)
     }
 
-    setTableTotalPages(val){
-        this.table.totalPages = val;
-    }
-
     init(){
         if (!this.data) return false;
 
@@ -144,122 +138,24 @@ class Table {
     updateTable(e){
         const type = e.currentTarget.getAttribute(`data-${this.dataName.tableUpdate}`);
 
-        switch (type) {
-            case 'sort':
-                this.setSort(e);
-            break;
-            case 'page':
-                this.setPage(e);
-            break;
-            case 'search':
-            break;
-            case 'details':
-                this.showRowDetails(e);
-            break;
+        const data = {
+            table: this.table,
+            data: this.data,
+            dataDefault: this.dataDefault
+        };
+
+        let Constructor = this.actions[type];
+        Constructor = new Constructor(data);
+
+        try {
+            const {table, data} = Constructor.updateData(e);
+            if (data) this.data = [...data];
+            if (table) this.table = {...this.table, ...table};
+            if (data) this.render('body');
+        } catch (e) {
+            console.log(e);
+            throw new Error('Конструктор должен содержать метод updateData');
         }
-
-        if (type !== 'details' ) this.render('body');
-    }
-
-    setPage(e){
-        e.preventDefault();
-
-        const type = e.currentTarget.getAttribute(`data-${this.dataName.tablePage}`);
-
-        if (e.currentTarget.classList.contains(this.className.active) || e.currentTarget.classList.contains(this.className.disable)) return false;
-
-        this.removeSiblingsActiveClass(e.currentTarget);
-
-        if (type === 'next') {
-            if (this.table.page < this.totalPages) this.table.page +=1;
-        } else if (type === 'prev') {
-            if (this.table.page > 1) this.table.page -=1;
-        } else {
-            e.currentTarget.classList.add(this.className.active);
-            this.table.page = Number(type);
-        }
-    }
-
-    setSort(e){
-        e.preventDefault();
-        const value = e.currentTarget.getAttribute(`data-${this.dataName.tableSortLink}`);
-
-        this.removeSiblingsActiveClass(e.currentTarget.parentNode, `[data-${this.dataName.tableSortLink}]`, [this.className.asc, this.className.desc]);
-
-        if (this.table.currentSort && value === this.table.currentSort.value){
-            switch (this.table.currentSort.dir) {
-                case this.className.asc:
-                    e.currentTarget.classList.remove(this.className.asc);
-                    e.currentTarget.classList.add(this.className.desc);
-
-                    this.table.currentSort.dir = this.className.desc;
-                    break;
-                case this.className.desc:
-                    this.table.currentSort = null;
-                    e.currentTarget.classList.remove(this.className.asc, this.className.desc);
-                    break;
-            }
-        } else {
-            e.currentTarget.classList.add(this.className.asc);
-            this.table.currentSort = {
-                value: value,
-                dir: this.className.asc
-            };
-        }
-
-        this.sortProducts();
-    }
-
-    sortProducts() {
-        let products = [...this.data];
-
-        if (this.table.currentSort){
-            const compare = (a, b) => {
-                return (a[this.table.currentSort.value] > b[this.table.currentSort.value]) ? 1 : -1;
-            };
-
-            products = products.sort(compare);
-        }
-
-        if (this.table.currentSort && this.table.currentSort.dir === this.className.asc){
-            this.data = products;
-        } else if (this.table.currentSort && this.table.currentSort.dir === this.className.desc){
-            this.data = products.reverse();
-        } else if (!this.table.currentSort) {
-            this.data = [...this.dataDefault];
-        }
-    }
-
-    showRowDetails(e){
-        e.preventDefault();
-        let detail = e.currentTarget.getAttribute(`data-${this.dataName.tableRow}`);
-        detail = JSON.parse(detail);
-
-        const $rowInfo = document.querySelector(`[data-${this.dataName.tableRowInfo}]`);
-        if ($rowInfo) $rowInfo.remove();
-
-        if (!e.currentTarget.classList.contains(this.className.active)){
-            this.$table.insertAdjacentHTML('afterend', TableRender.generateRowInfo(detail));
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
-
-        e.currentTarget.classList.toggle(this.className.active);
-
-        this.removeSiblingsActiveClass(e.currentTarget);
-    }
-
-    removeSiblingsActiveClass(target, child, classes){
-        const $siblings = target.siblingsElement();
-        $siblings.forEach(el => {
-            if (!child){
-                el.classList.remove(this.className.active);
-            } else {
-                el.querySelector(child).classList.remove(...classes);
-            }
-        });
     }
 
     render(type){
@@ -306,8 +202,14 @@ class Table {
 
             $tableBuild.forEach(link => {
                 link.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const cnt = e.currentTarget.getAttribute('data-table-build');
-                    new Table(Number(cnt));
+
+                    const table = new Table(Number(cnt), {
+                        pagination: TablePagination,
+                        sort: TableSort,
+                        details: TableRowDetails
+                    });
                 });
             });
         });

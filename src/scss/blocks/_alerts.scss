@@ -34,12 +34,15 @@
     
     &_success{
         box-shadow: inset 0 0 0 2px rgba($c-green, 1);
+        background-color: rgba($c-green, 1);
     }
     &_error{
         box-shadow: inset 0 0 0 2px rgba($c-red, 1);
+        background-color: rgba($c-red, 1);
     }
     &_info{
         box-shadow: inset 0 0 0 2px rgba($c-blue, 1);
+        background-color: rgba($c-blue, 1);
     }
     
     &.show{

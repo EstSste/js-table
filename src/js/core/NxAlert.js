@@ -6,7 +6,7 @@ class NxAlert{
             containerHtml: `<div class="alerts-wrap" data-alerts-wrap></div>`,
             elementHtml: `<div class="alert-el" data-alert-el></div>`,
             count: 0,
-            noticeTimeout: 5000,
+            noticeTimeout: 3000,
             maxNotice: 5
         };
 

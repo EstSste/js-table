@@ -7,7 +7,9 @@ class TableRender {
         };
 
         this.className = {
-            table: 'products-table'
+            table: 'products-table',
+            pagination: 'pagination',
+            details: 'attrs'
         };
 
         this.table = table;
@@ -16,15 +18,13 @@ class TableRender {
 
     generateHead() {
         const headItems = this.table.columns.map(cell => {
-            let sortClass = '',
-                activeClass = '';
+            let sortClass = '';
             if (this.table.currentSort){
-                activeClass = (cell.value === this.table.currentSort.value) ? 'active' : '';
                 sortClass = (this.table.currentSort.dir === 'desc') ? 'desc' : (this.table.currentSort.dir === 'asc') ? 'asc' : '';
             }
             return `
                 <div class="${this.className.table}__cell">
-                    <a href="#" class="${this.className.table}__link ${sortClass} ${activeClass}" data-table-update="sort" data-table-sort="${cell.value}">
+                    <a href="#" class="${this.className.table}__link ${sortClass}" data-table-update="sort" data-table-sort="${cell.value}">
                         ${cell.name}
                     </a>
                 </div>
@@ -78,63 +78,74 @@ class TableRender {
             if (!isShown) continue;
 
             if (isLeftDotsShown) {
-                pages += `<span class="pagination__pages-dots">...</span>`;
+                pages += `<span class="${this.className.pagination}__pages-dots">...</span>`;
             }
 
             const activeClass = (Number(this.table.page) === page) ? 'active' : '';
 
             pages += `
-                <a href="#" class="pagination__pages-link ${activeClass}" data-table-page="${page}" data-table-update="page">
+                <a href="#" class="${this.className.pagination}__pages-link ${activeClass}" data-table-page="${page}" data-table-update="pagination">
                     <span>${page}</span>
                 </a>
             `;
 
             if (isRightDotsShown) {
-                pages += `<span class="pagination__pages-dots">...</span>`;
+                pages += `<span class="${this.className.pagination}__pages-dots">...</span>`;
             }
         }
 
         return `
-            <div class="pagination">
-                <a href="#" class="pagination__arrow" data-table-page="prev" data-table-update="page">
-                    <i class="mdi mdi-arrow-left pagination__arrow-icon"></i>
+            <div class="${this.className.pagination}">
+                <a href="#" class="${this.className.pagination}__arrow" data-table-page="prev" data-table-update="pagination">
+                    <i class="mdi mdi-arrow-left ${this.className.pagination}__arrow-icon"></i>
                 </a>
-                <div class="pagination__pages">
+                <div class="${this.className.pagination}__pages">
                     ${pages}
                 </div>
-                <a href="#" class="pagination__arrow" data-table-page="next" data-table-update="page">
-                    <i class="mdi mdi-arrow-right pagination__arrow-icon"></i>
+                <a href="#" class="${this.className.pagination}__arrow" data-table-page="next" data-table-update="pagination">
+                    <i class="mdi mdi-arrow-right ${this.className.pagination}__arrow-icon"></i>
                 </a>
             </div>
         `;
     }
 
-    static generateRowInfo(row){
+    generateRowInfo(row){
+        if (!row) return ``;
+
+        const notSpecifiedText = 'не указано';
+        const firstName = (row.firstName) ? row.firstName : 'notSpecifiedText';
+        const lastName = (row.lastName) ? row.lastName : 'notSpecifiedText';
+        const street = (row.adress && row.adress.streetAddress) ? row.adress.streetAddress : notSpecifiedText;
+        const city = (row.adress && row.adress.city) ? row.adress.city : notSpecifiedText;
+        const state = (row.adress && row.adress.state) ? row.adress.state : notSpecifiedText;
+        const zip = (row.adress && row.adress.zip) ? row.adress.zip : notSpecifiedText;
+        const description = (row.description) ? row.description : notSpecifiedText;
+
         return `
-            <div class="attrs content-narrow form-group" data-table-row-info>
-                <div class="attrs__el">
-                    <div class="attrs__name">Выбран пользователь</div>
-                    <div class="attrs__val"><b>${row.firstName} ${row.lastName}</b></div>
+            <div class="${this.className.details} content-narrow form-group" data-table-row-info>
+                <div class="${this.className.details}__el">
+                    <div class="${this.className.details}__name">Выбран пользователь</div>
+                    <div class="${this.className.details}__val"><b>${firstName} ${lastName}</b></div>
                 </div>
-                <div class="attrs__el">
-                    <div class="attrs__name">Адрес проживания</div>
-                    <div class="attrs__val"><b>${row.adress.streetAddress}</b></div>
+                <div class="${this.className.details}__el">
+                    <div class="${this.className.details}__name">Адрес проживания</div>
+                    <div class="${this.className.details}__val"><b>${street}</b></div>
                 </div>
-                <div class="attrs__el">
-                    <div class="attrs__name">Город</div>
-                    <div class="attrs__val"><b>${row.adress.city}</b></div>
+                <div class="${this.className.details}__el">
+                    <div class="${this.className.details}__name">Город</div>
+                    <div class="${this.className.details}__val"><b>${city}</b></div>
                 </div>
-                <div class="attrs__el">
-                    <div class="attrs__name">Провинция/штат</div>
-                    <div class="attrs__val"><b>${row.adress.state}</b></div>
+                <div class="${this.className.details}__el">
+                    <div class="${this.className.details}__name">Провинция/штат</div>
+                    <div class="${this.className.details}__val"><b>${state}</b></div>
                 </div>
-                <div class="attrs__el">
-                    <div class="attrs__name">Индекс</div>
-                    <div class="attrs__val"><b>${row.adress.zip}</b></div>
+                <div class="${this.className.details}__el">
+                    <div class="${this.className.details}__name">Индекс</div>
+                    <div class="${this.className.details}__val"><b>${zip}</b></div>
                 </div>
-                <div class="attrs__el attrs__el_fw">
-                    <div class="attrs__name">Описание</div>
-                    <div class="attrs__val"><b>${row.description}</b></div>
+                <div class="${this.className.details}__el ${this.className.details}__el_fw">
+                    <div class="${this.className.details}__name">Описание</div>
+                    <div class="${this.className.details}__val"><b>${description}</b></div>
                 </div>
             </div>
         `;
