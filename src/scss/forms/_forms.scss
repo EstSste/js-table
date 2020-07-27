@@ -1,7 +1,4 @@
-.form-el, textarea, select,
-[type="text"], [type="email"], [type="search"],
-[type="tel"], [type="url"], [type="password"],
-[type="number"], [type="date"], [type="color"]{
+.form-el{
     position: relative;
     display: block;
     width: 100%;
@@ -40,6 +37,10 @@
             cursor: default;
         }
     }
+    
+    &_short{
+        max-width: map_get($input, max-w-short);
+    }
 }
 
 textarea, textarea.form-el{
@@ -53,26 +54,14 @@ textarea, textarea.form-el{
         min-height: map_get($input, height);
     }
 }
+
 [type="search"]{
     box-sizing: border-box;
 }
-[type="color"]{
-    padding: 1px 2px;
-    width: 44px;
-    height: 44px;
-}
+
 select{
     padding-top: 0;
     padding-bottom: 0;
-}
-.form-bgc {
-    padding: 40px 40px 50px;
-    background-color: lightgray;
-}
-.form-el{
-    &_short{
-        max-width: map_get($input, max-w-short);
-    }
 }
 
 .form-group{
@@ -81,6 +70,26 @@ select{
     &:last-child{
         margin-bottom: 0;
     }
+    
+    &__icon{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        height: map_get($input, height);
+        width: map_get($input, height);
+        padding: 0;
+        .mdi{
+            display: block;
+            @extend %centered-absolute;
+            width: 16px;
+            height: 16px;
+            font-size: 16px;
+            line-height: 1;
+        }
+    }
+    
     &.error{
         input, textarea, select{
             border-color: map_get($content, error-color);
@@ -91,6 +100,10 @@ select{
                 border-color: map_get($content, error-color);
             }
         }
+    }
+    &_iconed{
+        position: relative;
+        padding-right: map_get($input, height);
     }
 }
 

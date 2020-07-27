@@ -43,8 +43,12 @@ class TableSort{
                     this.table.currentSort.dir = this.className.desc;
                     break;
                 case this.className.desc:
-                    this.table.currentSort = null;
-                    e.currentTarget.classList.remove(this.className.asc, this.className.desc);
+                    e.currentTarget.classList.remove(this.className.desc);
+                    e.currentTarget.classList.add(this.className.asc);
+
+                    this.table.currentSort.dir = this.className.asc;
+                    // this.table.currentSort = null;
+                    // e.currentTarget.classList.remove(this.className.asc, this.className.desc);
                     break;
             }
         } else {

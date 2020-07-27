@@ -1,5 +1,4 @@
-button:not(.fancybox-button), .btn,
-[type="button"], [type="submit"], [type="reset"]{
+.btn{
     position: relative;
     display: inline-block;
     background-color: $btn-main;
@@ -42,27 +41,7 @@ button:not(.fancybox-button), .btn,
     [type="file"]{
         display: none;
     }
-}
-
-.btn{
-    &#{&}_d-block{
-        display: block;
-        width: 100%;
-    }
-    &#{&}_d-block-xs{
-        @include media('xs'){
-            display: block;
-            width: 100%;
-        }
-    }
-    &#{&}_lt{
-        background-color: $white;
-        color: $c-dark;
-        &:hover {
-            background-color: $c-dark;
-            color: $white;
-        }
-    }
+    
     &#{&}_br{
         border: 2px solid $btn-main;
         &, &:hover{

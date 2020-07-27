@@ -4,6 +4,7 @@ import TableRender from './TableRender';
 import TableSort from './TableSort';
 import TablePagination from './TablePagination';
 import TableRowDetails from './TableRowDetails';
+import TableSearch from './TableSearch';
 
 class Table {
     constructor(count, actions) {
@@ -57,6 +58,7 @@ class Table {
             tableActions: 'table-actions',
             tableUpdate: 'table-update',
             tableWrap: 'table-wrap',
+            tableSearch: 'table-search',
         };
 
         this.className = {
@@ -70,6 +72,7 @@ class Table {
         this.$table = document.querySelector(`[data-${this.dataName.table}]`);
         this.$tableWrap = document.querySelector(`[data-${this.dataName.tableWrap}]`);
         this.$pagination = document.querySelector(`[data-${this.dataName.pagination}]`);
+        this.$search = document.querySelector(`[data-${this.dataName.tableSearch}]`);
 
         this.getData().then(res => {
             this.data = res;
@@ -145,13 +148,22 @@ class Table {
         };
 
         let Constructor = this.actions[type];
-        Constructor = new Constructor(data);
+
+        try {
+            Constructor = new Constructor(data);
+        } catch (e) {
+            console.warn(`Конструктор ${type} не найден`, e);
+            return false;
+        }
 
         try {
             const {table, data} = Constructor.updateData(e);
-            if (data) this.data = [...data];
             if (table) this.table = {...this.table, ...table};
-            if (data) this.render('body');
+            if (data) {
+                this.data = [...data];
+                this.table.totalPages = this.totalPages;
+                this.render('body');
+            }
         } catch (e) {
             console.log(e);
             throw new Error('Конструктор должен содержать метод updateData');
@@ -184,7 +196,8 @@ class Table {
         this.updateTable = this.updateTable.bind(this);
 
         $updateLinks.forEach($link =>{
-            $link.addEventListener('click', this.updateTable, true);
+            const listenerType = ($link.tagName.toLowerCase() === 'input') ? 'change' : 'click';
+            $link.addEventListener(listenerType, this.updateTable, true);
         });
     }
 
@@ -192,8 +205,17 @@ class Table {
         const $updateLinks = document.querySelectorAll(`[data-${this.dataName.tableUpdate}]`);
 
         $updateLinks.forEach($link =>{
-            $link.removeEventListener('click', this.updateTable, true);
+            const listenerType = ($link.tagName.toLowerCase() === 'input') ? 'change' : 'click';
+            $link.removeEventListener(listenerType, this.updateTable, true);
         });
+    }
+
+    destroy(){
+        this.unBindEvents();
+        if (this.$table) this.$table.innerHTML = '';
+        if (this.$pagination) this.$pagination.innerHTML = '';
+        if (this.$search) this.$search.querySelector('input').value = '';
+        window.table = null;
     }
 
     static build(){
@@ -205,10 +227,13 @@ class Table {
                     e.preventDefault();
                     const cnt = e.currentTarget.getAttribute('data-table-build');
 
-                    const table = new Table(Number(cnt), {
+                    if (window.table) window.table.destroy();
+
+                    window.table = new Table(Number(cnt), {
                         pagination: TablePagination,
                         sort: TableSort,
-                        details: TableRowDetails
+                        details: TableRowDetails,
+                        search: TableSearch
                     });
                 });
             });

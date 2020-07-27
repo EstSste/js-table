@@ -1,11 +1,11 @@
 "use strict";
 /**
  * Global main class for initialize all plugins
- * Class has 2 arguments - new Visual($container, options)
+ * Class has 2 arguments - new Nx($container, options)
  * The $container argument takes a block in the DOM in which the plugins need to be initialized
- * $(document) by default for $container argument
+ * document by default for $container argument
  * @example
- * window.nx = new Nx($(document))
+ * window.nx = new Nx(document)
  */
 class Nx {
     constructor() {
@@ -44,6 +44,20 @@ class Nx {
         } else {
             this.plugins.initialize.push(newPlugin);
         }
+    }
+
+    //Init all events
+    static setup(){
+        document.addEventListener('DOMContentLoaded', () => {
+            window.nx.helpers.isTouch();
+            window.nx.helpers.isIE();
+            window.nx.initPlugins();
+        });
+
+        window.addEventListener('resize', () => {
+            window.nx.helpers.isTouch();
+            window.nx.helpers.isIE();
+        });
     }
 }
 

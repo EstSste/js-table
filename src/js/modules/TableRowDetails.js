@@ -23,7 +23,6 @@ class TableRowDetails{
     }
 
     showRowDetails(e){
-        console.log(e);
         e.preventDefault();
         let detail = e.currentTarget.getAttribute(`data-${this.dataName.tableRow}`);
         detail = JSON.parse(detail);
