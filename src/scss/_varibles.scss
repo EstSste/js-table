@@ -30,48 +30,6 @@ $bg:(
 
 
 //////////////////
-// Header
-//////////////////
-$header:(
-    height: 70px,
-    height-sm: 50px,
-    height-xs: 48px,
-    bg: whitesmoke,
-);
-
-
-//////////////////
-// Menu
-//////////////////
-$menu:(
-    width: 290px,
-
-    bg: white,
-    bg-active: transparent,
-    bg-hover: rgba(white, .05),
-
-    color-active: $c-dark,
-);
-
-$submenu:(
-    bg: white,
-    bg-xs: whitesmoke,
-    width: 200px
-);
-
-$mtoggle:(
-    size: 44px,
-    width: 24px,
-    height: 2px,
-    color: black,
-    color-hover: black,
-    color-active: black,
-    distanceBetween: 8px,
-    bg: transparent
-);
-
-
-//////////////////
 // Footer
 //////////////////
 $footer-bg: transparent;
@@ -232,27 +190,6 @@ $modal:(
 
 
 //////////////////
-// Sliders
-//////////////////
-$promo-slider:(
-    height: 550px,
-    height-xs: 400px,
-    arrow-w: 30px,
-    arrow-h: 30px,
-    arrow-fz: 30px,
-    bullet: 20px,
-    bg: $c-dark,
-);
-
-
-$list-slider:(
-    icon-fz: 30px,
-    icon-w: 30px,
-    icon-h: 30px,
-);
-
-
-//////////////////
 //scrollbar & selection
 //////////////////
 $scrollbar:(
@@ -260,14 +197,6 @@ $scrollbar:(
     radius: 10px,
     track-bg: slategray,
     bg: transparent
-);
-$scrollbarCustom:(
-    handle-size: 3px,
-    handle-radius: 10px,
-    track-bg: whitesmoke,
-    handle-bg: rgba(black, .4),
-    handle-bg-active: rgba(black, .7),
-    handle-bg-hover: rgba(black, .55),
 );
 
 $selectoin:(
@@ -313,7 +242,7 @@ $container-gutter-xs: 20px;
 $container:(
     max-width: 1300px,
     width-wo-gutter: 1200 - $container-gutter*2,
-    min-width: 320px,
+    min-width: 900px,
     width: 100%,
     narrow: 700px,
     narrow-med: 995px,

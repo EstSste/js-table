@@ -35,6 +35,7 @@ const browserSyncOpt = {
     injectChanges: true,
     // reloadDelay: 1500,
     notify: false,
+    proxy: 'http://localhost:3000'
 };
 const svgOpt = {
     output: {
@@ -76,7 +77,10 @@ mix.options({
 if (!mix.inProduction()){
     mix.sourceMaps()
         .webpackConfig({
-            devtool: "inline-source-map"
+            devtool: "inline-source-map",
+            devServer: {
+                port: 3000
+            }
         })
         .browserSync(browserSyncOpt)
         .disableSuccessNotifications();

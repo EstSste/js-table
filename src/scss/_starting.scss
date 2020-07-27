@@ -47,14 +47,6 @@ body{
     padding-left: $container-gutter;
     z-index: 1;
     
-    @include media('sm-min', 'sm-max'){
-        padding-right: $container-gutter-sm;
-        padding-left: $container-gutter-sm;
-    }
-    @include media('xs'){
-        padding-right: $container-gutter-xs;
-        padding-left: $container-gutter-xs;
-    }
 }
 
 .content-narrow{

@@ -20,14 +20,12 @@
         "@babel/preset-env": "^7.9.0",
         "@babel/runtime": "^7.9.2",
         "@popperjs/core": "^2.1.1",
-        "axios": "^0.19",
         "babel-plugin-import-directory": "^1.1.0",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
         "core-js": "^3.6.4",
         "cross-env": "^5.2.1",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.13",
         "node-notifier": "latest",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
@@ -36,24 +34,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "@fancyapps/fancybox": "^3.5.7",
-        "ace-builds": "^1.4.11",
-        "autosize": "^4.0.2",
-        "bootstrap3": "^3.3.5",
-        "ckeditor4": "^4.14.1",
         "element-closest": "^3.0.2",
-        "flatpickr": "^4.6.3",
-        "inputmask": "^5.0.3",
-        "inputmask-multi": "^1.2.0",
-        "ion-rangeslider": "^2.3.1",
-        "jquery": "^3.4.1",
-        "mustache": "^4.0.1",
-        "normalize.css": "^8.0.1",
-        "object-fit-images": "^3.2.4",
-        "overlayscrollbars": "^1.10.3",
-        "select2": "^4.0.13",
-        "sortablejs": "^1.10.2",
-        "tinymce": "^5.2.1",
-        "vanilla-picker": "^2.10.1"
+        "normalize.css": "^8.0.1"
     }
 }

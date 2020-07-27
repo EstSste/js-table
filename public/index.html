@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>Js table</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="/public/vendor.css">
-    <link rel="stylesheet" href="/public/app.min.css">
+    <link rel="stylesheet" href="./vendor.css">
+    <link rel="stylesheet" href="./app.min.css">
 </head>
 <body data-home="/">
 
@@ -27,7 +26,7 @@
                         <form class="form-group form-group_iconed">
                             <label class="label-dynamic" data-dynamic-label>
                                 <input type="text" class="form-el label-dynamic__input" data-dynamic-inp>
-                                <span class="label-dynamic__text">Поиск</span>
+                                <span class="label-dynamic__text">Поиск...</span>
                             </label>
                             <button class="btn form-group__icon" type="submit" data-table-update="search"><i class="mdi mdi-magnify"></i></button>
                         </form>
@@ -48,16 +47,14 @@
                     <a href="#" data-table-build="32" class="btn btn_br">Загрузить маленькую таблицу</a>
                 </div>
             </div>
-
-            <div class="text" data-error></div>
         </div>
     
     </div>
 </div>
 
-<script src="/public/manifest.js"></script>
-<script src="/public/vendor.js"></script>
-<script src="/public/app.min.js"></script>
+<script src="./manifest.js"></script>
+<script src="./vendor.js"></script>
+<script src="./app.min.js"></script>
 
 </body>
 </html>

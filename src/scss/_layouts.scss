@@ -57,41 +57,6 @@
     opacity: 0;
 }
 
-.fade {
-    opacity: 0;
-    transition: opacity $tr-time/2 $tr-type;
-    &.show {
-        opacity: 1;
-    }
-}
-.collapse {
-    display: none;
-    &__wrap{
-        padding: 0;
-    }
-    &.show {
-        display: block;
-    }
-}
-.collapsing {
-    position: relative;
-    height: 0;
-    overflow: hidden;
-    transition: height $tr-time $tr-type, opacity $tr-time $tr-type, visibility $tr-time $tr-type;
-}
-.tab-content{
-    > .tab-pane {
-        display: none;
-    }
-    > .active {
-        display: block;
-    }
-}
-
-.menu-open{
-    overflow: hidden;
-}
-
 .svg-icons {
     display: block;
     visibility: hidden;
@@ -122,45 +87,6 @@
 .error-color{ color: map_get($content, error-color) !important; }
 .info-color{ color: map_get($content, info-color) !important; }
 
-[data-load-content], [data-affix-parent]{
+[data-load-content]{
     position: relative;
-}
-[data-custom-scroll], [data-attach-dragger]{
-    overflow: hidden;
-}
-[data-attach-dragger]{
-    user-select: none;
-    img, a, button{
-        pointer-events: none;
-    }
-}
-
-.menu-bg, .filter-bg{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: map_get($modal, bg-backdrop);
-    z-index: 499;
-    transition: all $tr-time $tr-type;
-    visibility: hidden;
-    opacity: 0;
-}
-
-@include media('md-max'){
-    .menu-open .menu-bg{
-        transform: none;
-        visibility: visible;
-        opacity: 1;
-    }
-    .filter-open .filter-bg{
-        transform: none;
-        visibility: visible;
-        opacity: 1;
-    }
-}
-
-.d-block{
-    display: block;
 }

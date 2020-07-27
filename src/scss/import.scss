@@ -4,15 +4,11 @@
 
 // vendors
 @import "_vendor/fonts/materialdesignicons.min.css";
-
 @import "_vendor/flex-grid";
 
 // default
 @import "starting";
 @import "layouts";
-
-// libs
-//@import "_vendor/";
 
 // forms & buttons
 @import "forms/btns";
@@ -34,8 +30,6 @@
 @import "blocks/products-table";
 @import "blocks/pagination";
 @import "blocks/alerts";
-
-
 
 //pages
 //@import "pages/";

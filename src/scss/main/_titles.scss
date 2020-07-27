@@ -43,22 +43,6 @@ h6, .h6{
         margin-bottom: 5px;
     }
 }
-.page-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-.title-page{
-    font-size: $fz-xl;
-    margin-bottom: 20px;
-    @include media('sm-min', 'sm-max'){
-        font-size: $fz-big;
-    }
-    @include media('xs'){
-        font-size: $fz-xxlarge;
-        margin-bottom: 15px;
-    }
-}
 
 .pretitle{
     text-transform: uppercase;

@@ -1,6 +1,7 @@
 class TableSearch {
     constructor(data) {
         this.className = {
+            desc: 'desc'
         };
 
         this.dataName = {
@@ -21,7 +22,8 @@ class TableSearch {
 
         return {
             table: this.table,
-            data: (this.value) ? this.data : this.dataDefault
+            // data: (this.value) ? this.data : this.dataDefault
+            data: this.data
         };
     }
 
@@ -30,8 +32,7 @@ class TableSearch {
         const $input = e.currentTarget.closest(`[data-${this.dataName.tableSearch}]`).querySelector('input');
         this.value = String($input.value).toLowerCase();
 
-        this.table.currentSort = null;
-        this.table.page = 1;
+        this.prepareData();
 
         this.data = this.dataDefault.filter(el => {
             for (let key in el){
@@ -42,6 +43,19 @@ class TableSearch {
                 }
             }
         });
+    }
+
+    prepareData(){
+        if (this.table.page) this.table.page = 1;
+
+        if (this.table.currentSort){
+            const compare = (a, b) => {
+                return (a[this.table.currentSort.value] > b[this.table.currentSort.value]) ? 1 : -1;
+            };
+            this.dataDefault = this.dataDefault.sort(compare);
+            if (this.table.currentSort && this.table.currentSort.dir === this.className.desc)
+                this.dataDefault = this.dataDefault.reverse();
+        }
     }
 }
 

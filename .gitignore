@@ -8,6 +8,8 @@ Homestead.json
 Homestead.yaml
 .phpunit.result.cache
 
+hot
+
 # Assets
 /assets/all.*
 /assets/svg.*
