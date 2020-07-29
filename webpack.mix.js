@@ -72,6 +72,8 @@ mix.options({
     .styles(paths.src.vendorCss, paths.assets.vendorCss)
     .sass(paths.src.scss, paths.assets.appCss)
     .js(paths.src.appJs, paths.assets.appJs)
+    .copyDirectory('src/fonts', `${publicPath}/fonts`)
+    .copy('src/favicon.png', publicPath)
     .extract();
 
 if (!mix.inProduction()){

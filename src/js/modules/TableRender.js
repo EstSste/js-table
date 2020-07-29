@@ -1,6 +1,11 @@
 'use strict';
 
 class TableRender {
+    /**
+     * Renders table data into HTML
+     * @param table
+     * @param data
+     */
     constructor(table, data) {
         this.options = {
             visiblePageCount: 3
@@ -16,6 +21,10 @@ class TableRender {
         this.data = data;
     }
 
+    /**
+     * Renders table head
+     * @returns html string{String}
+     */
     generateHead() {
         const headItems = this.table.columns.map(cell => {
             let sortClass = '';
@@ -34,6 +43,10 @@ class TableRender {
         return headItems.join('');
     }
 
+    /**
+     * Renders table Body
+     * @returns html string{String}
+     */
     generateBody(){
         const bodyItems = this.data.map(product => {
             const cell = this.table.columns.map(cell => {
@@ -54,6 +67,10 @@ class TableRender {
         return bodyItems.join('');
     }
 
+    /**
+     * Renders full table
+     * @returns html string{String}
+     */
     generateFullTable(){
         return `
             <div class="${this.className.table}__row ${this.className.table}__head" data-table-head>
@@ -63,6 +80,10 @@ class TableRender {
         `;
     }
 
+    /**
+     * Renders table pagination
+     * @returns html string{String}
+     */
     generatePagination(){
         if (this.table.totalPages <= 1) return '';
 
@@ -109,6 +130,10 @@ class TableRender {
         `;
     }
 
+    /**
+     * Renders table row details
+     * @returns html string{String}
+     */
     generateRowInfo(row){
         if (!row) return ``;
 

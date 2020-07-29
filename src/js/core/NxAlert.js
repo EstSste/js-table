@@ -1,6 +1,11 @@
 'use strict';
 
 class NxAlert{
+    /**
+     * Creates alert
+     * @param element
+     * @param options {Object}
+     */
     constructor(element, options) {
         this.options = {
             containerHtml: `<div class="alerts-wrap" data-alerts-wrap></div>`,
@@ -29,6 +34,11 @@ class NxAlert{
         this.opened = [];
     }
 
+    /**
+     * Shows alert
+     * @param content {String}
+     * @param theme {String}
+     */
     show(content, theme){
         let $alertsWrap = document.querySelector(`[data-${this.dataName.alertsWrap}]`);
 
@@ -56,6 +66,12 @@ class NxAlert{
         this.options.count += 1;
     }
 
+    /**
+     * Hides alert
+     * @param $alertEl {HTMLDivElement}
+     * @param id {String|Number}
+     * @returns {number}
+     */
     hide($alertEl, id ){
         return setTimeout(() => {
             $alertEl.classList.remove(this.className.show);
@@ -63,6 +79,10 @@ class NxAlert{
         }, this.options.noticeTimeout);
     }
 
+    /**
+     * Remove alert dom element
+     * @param id {Number}
+     */
     removeElement(id){
         for(let i = 0; i < this.opened.length; i++){
             if (Number(id) === this.opened[i].id) {
@@ -85,6 +105,10 @@ class NxAlert{
         }, transitionDuration);
     }
 
+    /**
+     * Close current alert
+     * @param e {Event}
+     */
     close(e){
         e.preventDefault();
         let $target = e.currentTarget,
@@ -94,6 +118,10 @@ class NxAlert{
         this.removeElement(id);
     }
 
+    /**
+     * Checks max open alerts count
+     * @returns {boolean}
+     */
     checksCount(){
         if (this.opened.length <= this.options.maxNotice) return false;
 
@@ -108,6 +136,11 @@ class NxAlert{
         return true;
     }
 
+    /**
+     * Creates aler dom elemetn
+     * @param $alertsWrap {HTMLDivElement}
+     * @returns {HTMLDivElement}
+     */
     createAlertElement($alertsWrap) {
         let $el = document.createElement('div');
 
@@ -119,6 +152,10 @@ class NxAlert{
         return $el;
     }
 
+    /**
+     * Created dom alerts wrap
+     * @returns {HTMLDivElement}
+     */
     createAlertsWrap() {
         let $wrap = document.createElement('div');
 

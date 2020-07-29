@@ -3,6 +3,9 @@
 import TableRender from './TableRender';
 
 class TableRowDetails{
+    /**
+     * Shows the details of the selected row
+     */
     constructor() {
         this.className = {
             active: 'active'
@@ -17,11 +20,20 @@ class TableRowDetails{
         this.$table = document.querySelector(`[data-${this.dataName.table}]`);
     }
 
+    /**
+     * Trigger for show details
+     * @param e{Event}
+     * @returns {{}}
+     */
     updateData(e){
         this.showRowDetails(e);
         return {};
     }
 
+    /**
+     * Renders and shows the details of the selected row
+     * @param e{Event}
+     */
     showRowDetails(e){
         e.preventDefault();
         let detail = e.currentTarget.getAttribute(`data-${this.dataName.tableRow}`);
@@ -45,6 +57,17 @@ class TableRowDetails{
             el.classList.remove(this.className.active);
         });
     }
+
+    /**
+     * Remove details active row
+     * @returns {{}}
+     */
+    clear(){
+        const $rowInfo = document.querySelector(`[data-${this.dataName.tableRowInfo}]`);
+        if ($rowInfo) $rowInfo.remove();
+
+        return {};
+    }
 }
 
-export default TableRowDetails
+export default TableRowDetails;

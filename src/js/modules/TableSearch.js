@@ -1,4 +1,10 @@
+'use strict';
+
 class TableSearch {
+    /**
+     * Searches by entry
+     * @param data {Array}
+     */
     constructor(data) {
         this.className = {
             desc: 'desc'
@@ -14,48 +20,64 @@ class TableSearch {
         this.dataDefault = (data && data.dataDefault) ? data.dataDefault : [];
     }
 
+    /**
+     * Returns updated data and table properties
+     * @param e{Event}
+     * @returns {{data: [], table: {}}}
+     */
     updateData(e){
         this.search(e);
 
-        if (this.data && !this.data.length && this.value)
+        if (this.data && !this.data.length && this.table.value)
             window.nx.alert.show('Ничего не найдено', 'info');
 
         return {
             table: this.table,
-            // data: (this.value) ? this.data : this.dataDefault
+            // data: (this.table.value) ? this.data : this.dataDefault
             data: this.data
         };
     }
 
+    /**
+     * Searches by entry, except Object
+     * @param e {Event}
+     */
     search(e){
         e.preventDefault();
         const $input = e.currentTarget.closest(`[data-${this.dataName.tableSearch}]`).querySelector('input');
-        this.value = String($input.value).toLowerCase();
+        this.table.value = String($input.value).toLowerCase();
 
-        this.prepareData();
+        if (this.table.page) this.table.page = 1;
 
         this.data = this.dataDefault.filter(el => {
             for (let key in el){
-                const str = String(el[key]).toLowerCase();
+                if (el.hasOwnProperty(key)) {
+                    const str = String(el[key]).toLowerCase();
 
-                if (typeof el[key] !== 'object' && str.includes(this.value)){
-                    return el;
+                    if (typeof el[key] !== 'object' && str.includes(this.table.value)){
+                        return el;
+                    }
                 }
+
             }
         });
     }
 
-    prepareData(){
-        if (this.table.page) this.table.page = 1;
+    /**
+     * Cancel search
+     * @returns {Object}
+     */
+    clear(){
+        const $searchBlocks = document.querySelectorAll(`[data-${this.dataName.tableSearch}]`);
+        $searchBlocks.forEach(el => {
+            const $input = el.querySelector('input');
+            $input.value = '';
+        });
+        this.table.value = '';
 
-        if (this.table.currentSort){
-            const compare = (a, b) => {
-                return (a[this.table.currentSort.value] > b[this.table.currentSort.value]) ? 1 : -1;
-            };
-            this.dataDefault = this.dataDefault.sort(compare);
-            if (this.table.currentSort && this.table.currentSort.dir === this.className.desc)
-                this.dataDefault = this.dataDefault.reverse();
-        }
+        return {
+            table: this.table
+        };
     }
 }
 

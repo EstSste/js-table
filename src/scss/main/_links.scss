@@ -33,15 +33,6 @@ a, .link{
     }
 }
 
-.link-icon{
-    vertical-align: baseline;
-    margin-right: 6px;
-    &:last-child {
-        margin-right: 0;
-        margin-left: 8px;
-    }
-}
-
 
 .link{
     &_dashed{
@@ -49,11 +40,8 @@ a, .link{
             border-bottom-style: dashed;
         }
     }
-    &_bold{
-        font-weight: bold;
-    }
-    &_baseline{
-        vertical-align: baseline;
+    &_min{
+        font-size: $fz-little;
     }
     
     &_red{
@@ -66,38 +54,6 @@ a, .link{
             span{
                 border-bottom-color: $c-red;
             }
-        }
-    }
-    
-    &_light{
-        color: white;
-        span{
-            border-bottom-color: rgba(white, .3);
-        }
-        &:hover{
-            color: map_get($link, color-hover);
-            span{
-                border-bottom-color: rgba(map_get($link, color-hover), .3);
-            }
-        }
-    }
-    
-    &_collapse{
-        padding-right: 20px;
-        &:after{
-            content: "\F143";
-            @extend %f-mdi;
-            display: block;
-            position: absolute;
-            top: .2rem;
-            right: 0;
-            width: 16px;
-            height: 16px;
-            font-size: 16px;
-            line-height: 1;
-        }
-        &.collapsed:after{
-            transform: rotate(180deg);
         }
     }
 }

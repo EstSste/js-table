@@ -1,6 +1,10 @@
 'use strict';
 
 class TablePagination{
+    /**
+     * Creates pagination for a table
+     * @param data {Array}
+     */
     constructor(data) {
         this.className = {
             active: 'active',
@@ -16,6 +20,11 @@ class TablePagination{
         this.data = (data && data.data) ? data.data : [];
     }
 
+    /**
+     * Returns updated data and table properties
+     * @param e{Event}
+     * @returns {{data: [], table: {}}}
+     */
     updateData(e){
         this.setPage(e);
         return {
@@ -24,6 +33,11 @@ class TablePagination{
         };
     }
 
+    /**
+     * Sets the active page to the DOM and table properties
+     * @param e{Event}
+     * @returns {boolean}
+     */
     setPage(e){
         e.preventDefault();
 
@@ -44,6 +58,18 @@ class TablePagination{
             e.currentTarget.classList.add(this.className.active);
             this.table.page = Number(type);
         }
+    }
+
+    /**
+     * Clear active page
+     * @returns {{table: {} || null}}
+     */
+    clear(){
+        this.table.page = 1;
+
+        return {
+            table: this.table
+        };
     }
 }
 

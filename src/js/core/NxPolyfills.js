@@ -1,6 +1,9 @@
 import elementClosest from 'element-closest';
 
 class NxPolyfills {
+    /**
+     * Polyfills
+     */
     constructor() {
         this.options = {};
 
@@ -13,12 +16,19 @@ class NxPolyfills {
         this.init();
     }
 
+    /**
+     * Init all Polyfills
+     */
     init() {
         this.siblingsElement();
         this.nextAll();
         elementClosest(window);
     }
 
+    /**
+     * Returns all siblings
+     * @returns {boolean}
+     */
     siblingsElement() {
         if (typeof this.ElementPrototype.siblingsElement === 'function') return false;
 
@@ -42,6 +52,10 @@ class NxPolyfills {
         };
     }
 
+    /**
+     * Returns all next Nodes
+     * @returns {boolean}
+     */
     nextAll() {
         if (typeof this.ElementPrototype.nextAll === 'function') return false;
 

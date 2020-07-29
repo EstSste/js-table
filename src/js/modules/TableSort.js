@@ -1,6 +1,10 @@
 'use strict';
 
 class TableSort{
+    /**
+     * Sorts the data
+     * @param data {Array}
+     */
     constructor(data) {
         this.className = {
             asc: 'asc',
@@ -17,6 +21,11 @@ class TableSort{
         this.dataDefault = (data && data.dataDefault) ? data.dataDefault : [];
     }
 
+    /**
+     * Returns updated data and table properties
+     * @param e{Event}
+     * @returns {{data: [], table: {}}}
+     */
     updateData(e){
         this.setSort(e);
         return {
@@ -25,6 +34,10 @@ class TableSort{
         };
     }
 
+    /**
+     * Renders items and starts sorting data
+     * @param e{Event}
+     */
     setSort(e){
         e.preventDefault();
         const value = e.currentTarget.getAttribute(`data-${this.dataName.tableSortLink}`);
@@ -47,6 +60,7 @@ class TableSort{
                     e.currentTarget.classList.add(this.className.asc);
 
                     this.table.currentSort.dir = this.className.asc;
+                    //TODO if there is a default sorting - modify
                     // this.table.currentSort = null;
                     // e.currentTarget.classList.remove(this.className.asc, this.className.desc);
                     break;
@@ -59,27 +73,45 @@ class TableSort{
             };
         }
 
-        this.sortProducts();
+        this.data = TableSort.sort(this.table, this.data);
     }
 
-    sortProducts() {
-        let products = [...this.data];
+    /**
+     * Clear active sort
+     * @returns {{table: {} || null}}
+     */
+    clear(){
+        this.table.currentSort = null;
 
-        if (this.table.currentSort){
+        return {
+            table: this.table
+        };
+    }
+
+    /**
+     * Sorts an array of data and returns it
+     * @param table {Object}
+     * @param data {Array}
+     * @returns {Array}
+     */
+    static sort(table, data) {
+        let products = [...data];
+
+        if (table.currentSort){
             const compare = (a, b) => {
-                return (a[this.table.currentSort.value] > b[this.table.currentSort.value]) ? 1 : -1;
+                return (a[table.currentSort.value] > b[table.currentSort.value]) ? 1 : -1;
             };
 
             products = products.sort(compare);
         }
 
-        if (this.table.currentSort && this.table.currentSort.dir === this.className.asc){
-            this.data = products;
-        } else if (this.table.currentSort && this.table.currentSort.dir === this.className.desc){
-            this.data = products.reverse();
-        } else if (!this.table.currentSort) {
-            this.data = [...this.dataDefault];
+        if (table.currentSort && table.currentSort.dir === 'asc'){
+            return products;
+        } else if (table.currentSort && table.currentSort.dir === 'desc'){
+            return products.reverse();
         }
+
+        return [...products];
     }
 }
 
